@@ -32,3 +32,6 @@
 /config/master.key
 
 /public
+
+# Environment file
+.env
