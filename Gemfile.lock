@@ -45,6 +45,9 @@ GEM
     activerecord (6.0.3.3)
       activemodel (= 6.0.3.3)
       activesupport (= 6.0.3.3)
+    activerecord-sqlserver-adapter (6.0.0)
+      activerecord (~> 6.0.0)
+      tiny_tds
     activestorage (6.0.3.3)
       actionpack (= 6.0.3.3)
       activejob (= 6.0.3.3)
@@ -160,6 +163,7 @@ GEM
     sqlite3 (1.4.2)
     thor (1.0.1)
     thread_safe (0.3.6)
+    tiny_tds (2.1.2)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     websocket-driver (0.7.3)
@@ -171,6 +175,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-sqlserver-adapter (~> 6.0.0.rc2)
   bootsnap (>= 1.4.2)
   byebug
   dotenv-rails
@@ -182,6 +187,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3 (~> 1.4)
+  tiny_tds
   tzinfo-data
 
 RUBY VERSION

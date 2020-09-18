@@ -12,6 +12,8 @@ gem 'puma', '~> 4.1'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'activerecord-sqlserver-adapter', '~> 6.0.0.rc2'
+gem 'tiny_tds'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
