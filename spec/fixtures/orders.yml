@@ -1,0 +1,5 @@
+travel_to_europe:
+  client_id: 1
+  total: 45_000
+  status: "open"
+  comments: 'It is an important client'
