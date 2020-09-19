@@ -1,0 +1,11 @@
+luigis_restaurant:
+  product_id: 1
+  value: 5_000
+  count: 1
+  order: travel_to_europe
+
+central_park:
+  product_id: 2
+  value: 40_000
+  count: 2
+  order: travel_to_europe
