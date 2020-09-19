@@ -4,6 +4,7 @@ RSpec.describe Order, type: :model do
   it { is_expected.to validate_presence_of(:client_id) }
   it { is_expected.to validate_presence_of(:total) }
   it { is_expected.to validate_presence_of(:status) }
+  it { is_expected.to have_many(:order_products) }
 
   describe '#create' do
     context 'when the parameters are valid' do
