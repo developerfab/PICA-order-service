@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :orders, only: [:index]
+  resources :orders, only: [:index, :show]
 end
