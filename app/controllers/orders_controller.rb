@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :not_found_message_error
+
   def index
     orders = Order.all
     render json: orders
@@ -23,7 +24,7 @@ class OrdersController < ApplicationController
     if my_order.save
       render json: my_order, status: :created
     else
-      render json: { error: my_order.errors.message }, status: :unprocessable_entity
+      render json: { error: my_order.errors.messages }, status: :unprocessable_entity
     end
   end
 

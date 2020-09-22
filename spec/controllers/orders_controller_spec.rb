@@ -81,5 +81,38 @@ RSpec.describe OrdersController, type: :controller do
         expect(JSON.parse(response.body, symbolize_names: true)).to include(:id, :client_id, :total, :status, :comments)
       end
     end
+
+    context 'when missing parameters' do
+      let(:create_params) do
+        {
+          order: {
+            total: 10_000,
+            status: 'active',
+            order_products: [
+              {
+                product_id: 10,
+                value: 5_000,
+                count: 1
+              },
+              {
+                product_id: 11,
+                value: 5_000,
+                count: 1
+              }
+            ]
+          }
+        }
+      end
+
+      before do
+        post :create, params: create_params
+      end
+
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+
+      it 'returns message about missing parameter' do
+        expect(JSON.parse(response.body)['error']['client_id']).to eq(["can't be blank"])
+      end
+    end
   end
 end
