@@ -10,6 +10,7 @@ gem 'puma', '~> 4.1'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem "bunny", ">= 2.17.0"
 gem 'activerecord-sqlserver-adapter', '~> 6.0.0.rc2'
 gem 'tiny_tds'
 
