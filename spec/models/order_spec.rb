@@ -11,7 +11,7 @@ RSpec.describe Order, type: :model do
       {
         client_id: 23,
         total: 45000,
-        status: 'open',
+        status: 'active',
         comments: 'This client is important.'
       }
     end
