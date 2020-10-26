@@ -56,6 +56,7 @@ RSpec.describe OrdersController, type: :controller do
             total: 10_000,
             status: 'active',
             payment_method: 'credit1',
+            credit_number_card: "4509953566233704",
             order_products: [
               {
                 product_id: 10,
@@ -89,6 +90,7 @@ RSpec.describe OrdersController, type: :controller do
           order: {
             total: 10_000,
             status: 'active',
+            credit_number_card: "4509953566233704",
             order_products: [
               {
                 product_id: 10,

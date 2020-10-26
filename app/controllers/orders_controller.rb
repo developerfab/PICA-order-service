@@ -21,10 +21,15 @@ class OrdersController < ApplicationController
       my_order.order_products.build(order_product)
     end
 
-    if my_order.save
-      render json: my_order, status: :created
+    if Payer.call(order_params)
+      if my_order.save
+        # run the payment
+        render json: my_order, status: :created
+      else
+        render json: { error: my_order.errors.messages }, status: :unprocessable_entity
+      end
     else
-      render json: { error: my_order.errors.messages }, status: :unprocessable_entity
+      render json: { error: 'Tarjeta invalida' }, status: :unprocessable_entity
     end
   end
 
@@ -39,7 +44,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:client_id, :total, :status, :payment_method)
+    params.require(:order).permit(:client_id, :total, :status, :payment_method, :credit_number_card)
   end
 
   def order_product_params

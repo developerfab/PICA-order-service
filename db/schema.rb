@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_024811) do
+ActiveRecord::Schema.define(version: 2020_10_26_195403) do
 
   create_table "order_products", force: :cascade do |t|
     t.integer "product_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_024811) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "payment_method"
+    t.string "credit_number_card"
   end
 
   add_foreign_key "order_products", "orders"

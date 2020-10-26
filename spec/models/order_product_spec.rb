@@ -4,6 +4,8 @@ RSpec.describe OrderProduct, type: :model do
   it { is_expected.to validate_presence_of(:product_id) }
   it { is_expected.to validate_presence_of(:value) }
   it { is_expected.to validate_presence_of(:count) }
+  it { is_expected.to validate_presence_of(:payment_method) }
+  it { is_expected.to validate_presence_of(:credit_number_card) }
   it { is_expected.to belong_to(:order) }
 
   describe '#save' do
