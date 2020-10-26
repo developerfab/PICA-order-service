@@ -3,3 +3,4 @@ travel_to_europe:
   total: 45_000
   status: "open"
   comments: 'It is an important client'
+  payment_method: 'credit1'

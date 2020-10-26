@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  validates :client_id, :total, :status, presence: true
+  validates :client_id, :total, :status, :payment_method, presence: true
 
   has_many :order_products
 

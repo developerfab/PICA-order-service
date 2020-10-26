@@ -12,7 +12,8 @@ RSpec.describe Order, type: :model do
         client_id: 23,
         total: 45000,
         status: 'active',
-        comments: 'This client is important.'
+        comments: 'This client is important.',
+        payment_method: 'credit1'
       }
     end
 

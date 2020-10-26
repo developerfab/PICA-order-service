@@ -55,6 +55,7 @@ RSpec.describe OrdersController, type: :controller do
             client_id: 20,
             total: 10_000,
             status: 'active',
+            payment_method: 'credit1',
             order_products: [
               {
                 product_id: 10,
