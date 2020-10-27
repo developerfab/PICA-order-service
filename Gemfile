@@ -14,6 +14,7 @@ gem "bunny", ">= 2.17.0"
 gem 'activerecord-sqlserver-adapter', '~> 6.0.0.rc2'
 gem 'tiny_tds'
 gem 'savon'
+gem 'httparty'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'

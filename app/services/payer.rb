@@ -8,15 +8,26 @@ class Payer < ApplicationService
   end
 
   def call
-    if message[:payment_method] == 'credit1'
       client = Savon.client(wsdl: 'http://localhost:8090/ws/creditcardvalidation.wsdl')
       response = client.call(:get_credit_card_validation, message: { number: message[:credit_number_card] })
       if response.body[:get_credit_card_validation_response][:issuing_network] == "Invalid Card"
         return false
-      else
-        return true
       end
-    else
-    end
+
+      HTTParty.post('http://localhost:8080/creditcard/verifyCreditCard', 
+      :body => request_params(response_verification).to_json,
+      :headers => { 'Content-Type' => 'application/json' } )
+  end
+
+  private
+
+  def request_params(response)
+    {
+      cc: {
+        type: response.body[:get_credit_card_validation_response][:issuing_network],
+        mount: message[:total],
+        number: message[:credit_number_card]
+      }
+    }
   end
 end

@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:  
+      - database
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+  database:
+      container_name: "sql"
+      image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+      ports:
+        - "8001:8001"
+      environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Root1234_
+        - MSSQL_PID=Express
