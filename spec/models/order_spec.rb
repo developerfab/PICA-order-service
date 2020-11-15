@@ -4,6 +4,8 @@ RSpec.describe Order, type: :model do
   it { is_expected.to validate_presence_of(:client_id) }
   it { is_expected.to validate_presence_of(:total) }
   it { is_expected.to validate_presence_of(:status) }
+  it { is_expected.to validate_presence_of(:credit_number_card) }
+  it { is_expected.to validate_presence_of(:payment_method) }
   it { is_expected.to have_many(:order_products) }
 
   describe '#create' do
@@ -11,6 +13,7 @@ RSpec.describe Order, type: :model do
       {
         client_id: 23,
         total: 45000,
+        credit_number_card: '4509953566233704',
         status: 'active',
         comments: 'This client is important.',
         payment_method: 'credit1'

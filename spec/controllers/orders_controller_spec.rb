@@ -74,6 +74,7 @@ RSpec.describe OrdersController, type: :controller do
       end
 
       before do
+        allow(Payer).to receive(:call).and_return(true)
         post :create, params: create_params
       end
 
@@ -108,6 +109,7 @@ RSpec.describe OrdersController, type: :controller do
       end
 
       before do
+        allow(Payer).to receive(:call).and_return(true)
         post :create, params: create_params
       end
 
