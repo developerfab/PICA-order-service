@@ -19,6 +19,14 @@ class OrderProductsController < ApplicationController
     end
   end
 
+  def destroy
+    product = OrderProduct.find(params[:id])
+
+    if product.delete
+      render json: product.to_json, status: :ok
+    end
+  end
+
   private
 
   def product_params

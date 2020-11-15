@@ -81,4 +81,41 @@ RSpec.describe OrderProductsController, type: :request do
       end
     end
   end
+
+  describe '#delete' do
+    context 'when the product is include in the order' do
+      let(:my_order) { orders(:travel_to_europe) }
+      let(:response_body) { JSON.parse(response.body) }
+      let(:my_product) { order_products(:luigis_restaurant) }
+
+      before do
+        delete order_order_product_path(order_id: my_order.id, id: my_product.id)
+      end
+
+      it { expect(response).to have_http_status(200) }
+
+      it 'returns the information about the product deleted' do
+        expect(response_body).to include('order_id')
+        expect(response_body).to include('product_id')
+        expect(response_body).to include('value')
+        expect(response_body).to include('count')
+      end
+
+      it 'deletes the product from the order' do
+        my_order.reload
+        expect(my_order.order_products.count).to eq(1)
+      end
+    end
+
+    context "when the product isn't include in the order" do
+      let(:my_order) { orders(:travel_to_europe) }
+      let(:response_body) { JSON.parse(response.body) }
+
+      before do
+        delete order_order_product_path(order_id: my_order.id, id: 123)
+      end
+
+      it { expect(response).to have_http_status(422) }
+    end
+  end
 end
