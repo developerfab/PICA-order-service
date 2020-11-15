@@ -10,9 +10,7 @@ class Payer < ApplicationService
   def call
     client = Savon.client(wsdl: "http://#{ENV['CREDIT_CARD_URL']}:#{ENV['CREDIT_CARD_PORT']}/ws/creditcardvalidation.wsdl")
     response = client.call(:get_credit_card_validation, message: { number: message[:credit_number_card] })
-    if response.body[:get_credit_card_validation_response][:issuing_network] == "Invalid Card"
-      return false
-    end
+    response.body[:get_credit_card_validation_response][:issuing_network] != "Invalid Card"
 
     # HTTParty.post('http://localhost:8080/creditcard/verifyCreditCard',
     # :body => request_params(response_verification).to_json,
