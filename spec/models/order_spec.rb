@@ -29,9 +29,20 @@ RSpec.describe Order, type: :model do
     end
 
     context 'when creates a order_product also' do
-      let(:order_product) { JSON.parse(order_products(:luigis_restaurant).dup.to_json) }
+      let(:product) { order_products(:luigis_restaurant) }
+      let(:order_product) { JSON.parse(product.dup.to_json) }
 
       before do
+        travel_to Time.zone.local(2020, 11, 16, 00, 00, 00)
+
+        stub_request(:get, "http://#{ENV['CAMPAIGN_SERVICE_HOST']}:#{ENV['CAMPAIGN_SERVICE_PORT']}/campaigns?filter_by_frame=16/11/2020&filter_by_product_id=#{product.product_id}").with(
+          headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Ruby'
+          }
+        ).to_return(body: '[]', headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3' })
+
         subject.order_products.build(order_product)
       end
 
@@ -39,6 +50,8 @@ RSpec.describe Order, type: :model do
         expect{ subject.save }.to change(Order, :count).by(1)
           .and change(OrderProduct, :count).by(1)
       end
+
+      after { travel_back }
     end
   end
 end

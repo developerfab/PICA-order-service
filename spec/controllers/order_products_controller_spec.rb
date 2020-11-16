@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe OrderProductsController, type: :request do
+  before do
+    travel_to Time.zone.local(2020, 11, 16, 00, 00, 00)
+
+    stub_request(:get, "http://#{ENV['CAMPAIGN_SERVICE_HOST']}:#{ENV['CAMPAIGN_SERVICE_PORT']}/campaigns?filter_by_frame=16/11/2020&filter_by_product_id=15").with(
+      headers: {
+        'Accept'=>'*/*',
+        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'User-Agent'=>'Ruby'
+      }
+    ).to_return(body: '[]', headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3' })
+  end
+
+  after { travel_back }
+
   describe '#index' do
     context 'when the order exist' do
       let(:my_order) { orders(:travel_to_europe) }
@@ -44,6 +58,7 @@ RSpec.describe OrderProductsController, type: :request do
       end
 
       before do
+
         post order_order_products_path(order_id: my_order.id, params: params)
       end
 

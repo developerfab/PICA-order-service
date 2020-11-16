@@ -74,7 +74,26 @@ RSpec.describe OrdersController, type: :controller do
       end
 
       before do
+        travel_to Time.zone.local(2020, 11, 16, 00, 00, 00)
+
+        stub_request(:get, "http://#{ENV['CAMPAIGN_SERVICE_HOST']}:#{ENV['CAMPAIGN_SERVICE_PORT']}/campaigns?filter_by_frame=16/11/2020&filter_by_product_id=10").with(
+          headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Ruby'
+          }
+        ).to_return(body: '[]', headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3' })
+
+        stub_request(:get, "http://#{ENV['CAMPAIGN_SERVICE_HOST']}:#{ENV['CAMPAIGN_SERVICE_PORT']}/campaigns?filter_by_frame=16/11/2020&filter_by_product_id=11").with(
+          headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Ruby'
+          }
+        ).to_return(body: '[]', headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3' })
+
         allow(Payer).to receive(:call).and_return(true)
+
         post :create, params: create_params
       end
 
@@ -83,6 +102,8 @@ RSpec.describe OrdersController, type: :controller do
       it 'creates a new order' do
         expect(JSON.parse(response.body, symbolize_names: true)).to include(:id, :client_id, :total, :status, :comments)
       end
+
+      after { travel_back }
     end
 
     context 'when missing parameters' do
