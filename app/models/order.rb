@@ -8,4 +8,12 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_products
 
   scope :find_by_client_id, -> (client_id) { where(client_id: client_id) }
+
+  before_save :calcule_total
+
+  private
+
+  def calcule_total
+    self.total = order_products.map(&:value).sum
+  end
 end
