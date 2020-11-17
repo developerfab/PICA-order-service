@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :not_found_message_error
 
+  has_scope :find_by_client_id
+
   def index
-    orders = Order.all
+    orders = apply_scopes(Order).all
     render json: orders
   end
 

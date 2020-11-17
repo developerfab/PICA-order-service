@@ -5,3 +5,11 @@ travel_to_europe:
   comments: 'It is an important client'
   payment_method: 'credit1'
   credit_number_card: 12345678
+
+travel_to_africa:
+  client_id: 2
+  total: 45_000
+  status: 'pending'
+  comments: 'It is an important client'
+  payment_method: 'credit1'
+  credit_number_card: 12345678

@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe OrdersController, type: :controller do
   describe '#index' do
     let(:order1){ JSON.parse(orders(:travel_to_europe).to_json) }
-    let(:expected_response) { [order1] }
+    let(:order2){ JSON.parse(orders(:travel_to_africa).to_json) }
+    let(:expected_response) { [order1, order2] }
 
     before do
       get :index

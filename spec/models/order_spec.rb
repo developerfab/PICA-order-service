@@ -54,4 +54,10 @@ RSpec.describe Order, type: :model do
       after { travel_back }
     end
   end
+
+  describe '.find_by_client_id' do
+    it 'returns the orders related to a client' do
+      expect(described_class.find_by_client_id(1).count).to eq(1)
+    end
+  end
 end
