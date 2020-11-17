@@ -33,6 +33,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def update
+    order = Order.find(order_id)
+    if order.update(order_params)
+      render json: order, status: :ok
+    else
+      render json: { error: order.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def not_found_message_error(exception)

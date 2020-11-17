@@ -1,6 +1,7 @@
 travel_to_europe:
   client_id: 1
   total: 45_000
-  status: "open"
+  status: 'pending'
   comments: 'It is an important client'
   payment_method: 'credit1'
+  credit_number_card: 12345678

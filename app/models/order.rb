@@ -3,6 +3,6 @@ class Order < ApplicationRecord
 
   has_many :order_products
 
-  enum status: [:active, :pending, :cancelled, :closed, :paid]
+  enum status: { pending: 'pending', active: 'active', cancelled: 'cancelled', closed: 'closed', paid: 'paid' }
   accepts_nested_attributes_for :order_products
 end

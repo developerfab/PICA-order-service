@@ -54,7 +54,7 @@ RSpec.describe OrdersController, type: :controller do
           order: {
             client_id: 20,
             total: 10_000,
-            status: 'active',
+            status: 'pending',
             payment_method: 'credit1',
             credit_number_card: "4509953566233704",
             order_products: [
@@ -139,6 +139,55 @@ RSpec.describe OrdersController, type: :controller do
       it 'returns message about missing parameter' do
         expect(JSON.parse(response.body)['error']['client_id']).to eq(["can't be blank"])
       end
+    end
+  end
+
+  describe '#update' do
+    context 'when the order exist', type: :request do
+      let(:order1){ orders(:travel_to_europe) }
+
+      let(:update_params) do
+        {
+          order: {
+            status: 'active',
+            client_id: 1,
+            total: 45_000,
+            comments: 'It is an important client',
+            payment_method: 'credit1'
+          }
+        }
+      end
+
+      before do
+        put order_path(id: order1.id), params: update_params
+      end
+
+      it { expect(response).to have_http_status(:ok) }
+
+      it 'returns the updated order' do
+        order1.reload
+        expect(order1.status).to eq('active')
+      end
+    end
+
+    context "when the order doesn't exist", type: :request do
+      let(:update_params) do
+        {
+          order: {
+            status: 'active',
+            client_id: 1,
+            total: 45_000,
+            comments: 'It is an important client',
+            payment_method: 'credit1'
+          }
+        }
+      end
+
+      before do
+        put order_path(id: 123), params: update_params
+      end
+
+      it { expect(response).to have_http_status(404) }
     end
   end
 end
