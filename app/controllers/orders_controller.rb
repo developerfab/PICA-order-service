@@ -37,7 +37,8 @@ class OrdersController < ApplicationController
 
   def update
     order = Order.find(order_id)
-    if order.update(order_params)
+    order.assign_attributes(order_params)
+    if order.save
       render json: order, status: :ok
     else
       render json: { error: order.errors }, status: :unprocessable_entity

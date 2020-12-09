@@ -10,10 +10,19 @@ class Order < ApplicationRecord
   scope :find_by_client_id, -> (client_id) { where(client_id: client_id) }
 
   before_save :calcule_total
+  before_save :send_order
 
   private
 
   def calcule_total
     self.total = order_products.map(&:value).sum
+  end
+
+  def send_order
+    if(status_changed? && active?)
+      unless Orderer.call(self)
+        self.status = :cancelled
+      end
+    end
   end
 end
