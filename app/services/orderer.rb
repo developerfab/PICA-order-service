@@ -8,7 +8,7 @@ class Orderer < ApplicationService
   def call
     success = true
     order.order_products.each do |product|
-      response = HTTParty.get("http://#{ENV['PRODUCT_SERVICE_URL']}:#{ENV['PRODUCT_SERVICE_PORT']}/products/#{product.id}")
+      response = HTTParty.get("http://#{ENV['PRODUCT_SERVICE_URL']}:#{ENV['PRODUCT_SERVICE_PORT']}/products/#{product.produc_id}")
       transport_type = JSON.parse(response.body)['transportType']
       case transport_type
       when 'Aereo'
